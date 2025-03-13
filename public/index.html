@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="NetShield Pro - Advanced Antivirus & Security Solution">
+        <meta name="author" content="Devinbeater">
+        <title>NetShield Pro - Advanced Security Suite</title>
+        
+        <!-- Tailwind CSS via CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            // Deep Purple Color Palette
+                            dark: {
+                                'bg': '#1A1A2E',          // Deep dark background
+                                'card': '#16213E',        // Slightly lighter card background
+                                'nav': '#0F3460',         // Navigation background
+                                'border': '#534B62',      // Border color
+                                'hover': '#1E2746'        // Hover state background
+                            },
+                            // Cyan Accent Colors
+                            cyan: {
+                                '50': '#E6FFFA',
+                                '100': '#B2F5EA',
+                                '200': '#81E6D9',
+                                '300': '#4FD1C5',
+                                '400': '#38B2AC',
+                                '500': '#319795',
+                                '600': '#2C7A7B',
+                                '700': '#285E61',
+                                '800': '#234E52',
+                                '900': '#1D4044'
+                            },
+                            // Purple Accent Colors
+                            purple: {
+                                '50': '#FAF5FF',
+                                '100': '#E9D8FD',
+                                '200': '#D6BCFF',
+                                '300': '#B794F4',
+                                '400': '#9F7AEA',
+                                '500': '#805AD5',
+                                '600': '#6B46C1',
+                                '700': '#553C9A',
+                                '800': '#44337A',
+                                '900': '#322659'
+                            }
+                        },
+                        keyframes: {
+                            'pulse-soft': {
+                                '0%, 100%': { transform: 'scale(1)' },
+                                '50%': { transform: 'scale(1.02)' }
+                            },
+                            'glow': {
+                                '0%, 100%': { boxShadow: '0 0 0 0 rgba(49, 151, 149, 0)' },
+                                '50%': { boxShadow: '0 0 20px 4px rgba(49, 151, 149, 0.3)' }
+                            }
+                        },
+                        animation: {
+                            'pulse-soft': 'pulse-soft 2s infinite',
+                            'glow': 'glow 2s infinite'
+                        }
+                    }
+                }
+            }
+        </script>
+        
+        <style type="text/tailwindcss">
+            @layer components {
+                /* Navigation Links */
+                .nav-link {
+                    @apply text-cyan-200 hover:text-cyan-50 px-3 py-2 text-sm font-medium border-b-2 border-transparent 
+                           transition-all duration-300 relative hover:-translate-y-0.5;
+                }
+                
+                .nav-link:after {
+                    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-500 
+                           transition-all duration-300 ease-in-out;
+                }
+                
+                .nav-link:hover:after {
+                    @apply w-full;
+                }
+                
+                .nav-link.active {
+                    @apply text-cyan-50 border-cyan-500;
+                }
+                
+                /* Feature Cards */
+                .feature-card {
+                    @apply bg-dark-card p-6 rounded-lg transition-all duration-300
+                           hover:transform hover:scale-102 hover:bg-dark-hover
+                           hover:shadow-[0_0_25px_-5px_rgba(49,151,149,0.3)]
+                           hover:-translate-y-1;
+                }
+                
+                /* Pricing Cards */
+                .pricing-card {
+                    @apply bg-dark-card p-8 rounded-lg transition-all duration-300
+                           hover:transform hover:scale-102
+                           hover:shadow-[0_0_30px_-5px_rgba(49,151,149,0.3)]
+                           hover:-translate-y-2;
+                }
+                
+                /* Buttons */
+                .btn-primary {
+                    @apply bg-cyan-600 text-cyan-50 px-6 py-3 rounded-lg
+                           transition-all duration-300 transform
+                           hover:bg-cyan-700 hover:-translate-y-0.5
+                           hover:shadow-[0_0_20px_-5px_rgba(49,151,149,0.5)]
+                           active:translate-y-0 active:shadow-none;
+                }
+                
+                .btn-secondary {
+                    @apply border-2 border-dark-border text-cyan-200 px-6 py-3 rounded-lg
+                           transition-all duration-300 transform
+                           hover:border-cyan-500 hover:text-cyan-50 hover:-translate-y-0.5
+                           hover:shadow-[0_0_20px_-5px_rgba(49,151,149,0.3)]
+                           active:translate-y-0 active:shadow-none;
+                }
+            }
+        </style>
+    </head>
+    <body class="bg-dark-bg text-cyan-100 antialiased">
+    <!-- Mobile Menu Button -->
+    <div class="md:hidden fixed top-4 right-4 z-50">
+        <button id="mobile-menu-button" class="text-white p-2 rounded-md hover:bg-gray-700 focus:outline-none">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-gray-900 bg-opacity-95 z-40 hidden md:hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#home" class="text-white text-xl">Home</a>
+            <a href="#features" class="text-gray-300 hover:text-white text-xl">Features</a>
+            <a href="#pricing" class="text-gray-300 hover:text-white text-xl">Pricing</a>
+            <a href="#about" class="text-gray-300 hover:text-white text-xl">About</a>
+            <div class="space-y-4">
+                <a href="../src/auth/login.php" class="block text-center text-gray-300 hover:text-white">Login</a>
+                <a href="../src/auth/register.php" class="block text-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md">Get Started</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-gray-800 bg-opacity-95 shadow-lg z-30 transition-all duration-300" id="main-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo and Navigation Links -->
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="#home">
+                            <img class="h-10 w-auto" src="assets/images/logo.svg" alt="NetShield Pro">
+                        </a>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="#home" class="nav-link active">Home</a>
+                        <a href="#features" class="nav-link">Features</a>
+                        <a href="#pricing" class="nav-link">Pricing</a>
+                        <a href="#about" class="nav-link">About</a>
+                    </div>
+                </div>
+                <!-- Authentication Links -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="../src/auth/login.php" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Login</a>
+                    <a href="../src/auth/register.php" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-300">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+                    Next-Generation Security Suite
+                </h1>
+                <p class="text-xl text-gray-400 mb-12 max-w-3xl mx-auto">
+                    Protect your digital life with advanced AI-powered security. 
+                    Real-time protection against viruses, malware, ransomware, and emerging cyber threats.
+                </p>
+                <div class="flex justify-center space-x-6">
+                    <a href="../src/auth/register.php" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
+                        Start Free Trial
+                    </a>
+                    <a href="#features" class="border border-gray-600 hover:border-blue-500 text-gray-300 hover:text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Comprehensive Protection Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Real-time Protection -->
+                <div class="bg-gray-900 p-6 rounded-lg transform hover:scale-105 transition duration-300">
+                    <div class="h-12 w-12 bg-blue-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Real-time Protection</h3>
+                    <p class="text-gray-400">Advanced threat detection and prevention with AI-powered scanning engine.</p>
+                </div>
+
+                <!-- Password Manager -->
+                <div class="bg-gray-900 p-6 rounded-lg transform hover:scale-105 transition duration-300">
+                    <div class="h-12 w-12 bg-purple-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Password Manager</h3>
+                    <p class="text-gray-400">Secure storage and generation of strong passwords for all your accounts.</p>
+                </div>
+
+                <!-- Parental Controls -->
+                <div class="bg-gray-900 p-6 rounded-lg transform hover:scale-105 transition duration-300">
+                    <div class="h-12 w-12 bg-green-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Parental Controls</h3>
+                    <p class="text-gray-400">Advanced content filtering and screen time management for family safety.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Simple, Transparent Pricing</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Basic Plan -->
+                <div class="bg-gray-800 p-8 rounded-lg transform hover:scale-105 transition duration-300">
+                    <h3 class="text-2xl font-bold mb-4">Basic</h3>
+                    <p class="text-4xl font-bold mb-6">$4.99<span class="text-lg text-gray-400">/month</span></p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Real-time Protection
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Password Manager
+                        </li>
+                    </ul>
+                    <a href="../src/auth/register.php?plan=basic" 
+                       class="block text-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition duration-300">
+                        Choose Basic
+                    </a>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="bg-gray-800 p-8 rounded-lg transform scale-105 border-2 border-blue-500 relative">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white px-3 py-1 text-sm rounded-bl">Popular</div>
+                    <h3 class="text-2xl font-bold mb-4">Pro</h3>
+                    <p class="text-4xl font-bold mb-6">$9.99<span class="text-lg text-gray-400">/month</span></p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Everything in Basic
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Parental Controls
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Advanced Scanning
+                        </li>
+                    </ul>
+                    <a href="../src/auth/register.php?plan=pro" class="block text-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition duration-300">
+                        Choose Pro
+                    </a>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="bg-gray-800 p-8 rounded-lg transform hover:scale-105 transition duration-300">
+                    <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
+                    <p class="text-4xl font-bold mb-6">Custom</p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Everything in Pro
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Custom Integration
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            24/7 Support
+                        </li>
+                    </ul>
+                    <a href="../src/auth/register.php?plan=enterprise" class="block text-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition duration-300">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">About NetShield Pro</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4">Our Mission</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        At NetShield Pro, we're committed to providing cutting-edge security solutions that protect your digital life. 
+                        Our AI-powered technology continuously evolves to stay ahead of emerging threats.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4">Why Choose Us</h3>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Advanced AI-powered protection
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            24/7 customer support
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Regular security updates
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">NetShield Pro</h4>
+                    <p class="text-gray-400">Advanced security suite for modern digital threats.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition duration-300">Features</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition duration-300">Pricing</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="mt-8 pt-8 border-t border-gray-800">
+                <p class="text-center text-gray-400">
+                    © 2025 NetShield Pro. All rights reserved. Last updated: 2025-03-04 16:03:33 UTC
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->s
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/scanner.js"></script>
+    <script src="assets/js/password-generator.js"></script>
+    <script src="assets/js/parental-controls.js"></script>
+</body>
+</html>

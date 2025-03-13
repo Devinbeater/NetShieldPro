@@ -1,0 +1,60 @@
+{
+    "timestamp": "2025-03-06 17:09:47",
+    "instance_id": "c6d0ef34c8f20e44",
+    "user": "Devinbeater",
+    "queries": [
+        {
+            "query": "SELECT 1 as test",
+            "params": [],
+            "execution_time": 0.001811981201171875,
+            "timestamp": "2025-03-06 17:09:47",
+            "memory_usage": 2097152
+        }
+    ],
+    "metrics": {
+        "uptime": 0.13781094551086426,
+        "total_queries": 1,
+        "memory_usage": 2097152,
+        "peak_memory": 2097152
+    }
+}
+{
+    "timestamp": "2025-03-06 17:09:47",
+    "instance_id": "09ce74db308136a6",
+    "user": "Devinbeater",
+    "queries": [
+        {
+            "query": "SELECT 1 as test",
+            "params": [],
+            "execution_time": 0.0006220340728759766,
+            "timestamp": "2025-03-06 17:09:47",
+            "memory_usage": 8388608
+        }
+    ],
+    "metrics": {
+        "uptime": 0.017922163009643555,
+        "total_queries": 1,
+        "memory_usage": 8388608,
+        "peak_memory": 8388608
+    }
+}
+{
+    "timestamp": "2025-03-06 17:09:47",
+    "instance_id": "96769fcf5762593d",
+    "user": "Devinbeater",
+    "queries": [
+        {
+            "query": "SELECT 1 as test",
+            "params": [],
+            "execution_time": 0.00044989585876464844,
+            "timestamp": "2025-03-06 17:09:47",
+            "memory_usage": 4194304
+        }
+    ],
+    "metrics": {
+        "uptime": 0.008569955825805664,
+        "total_queries": 1,
+        "memory_usage": 4194304,
+        "peak_memory": 4194304
+    }
+}
